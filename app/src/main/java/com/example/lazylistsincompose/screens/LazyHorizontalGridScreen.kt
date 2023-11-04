@@ -17,8 +17,12 @@ import coil.compose.AsyncImage
 import com.example.lazylistsincompose.Animal
 
 @Composable
-fun LazyHorizontalGridScreen(animals: List<Animal>) {
+fun LazyHorizontalGridScreen(
+    animals: List<Animal>,
+    modifier: Modifier = Modifier
+) {
     LazyHorizontalGrid(
+        modifier = Modifier.then(modifier),
         rows = GridCells.Adaptive(120.dp),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),

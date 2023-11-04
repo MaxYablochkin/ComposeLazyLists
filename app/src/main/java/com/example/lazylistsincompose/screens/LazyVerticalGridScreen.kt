@@ -17,8 +17,12 @@ import coil.compose.AsyncImage
 import com.example.lazylistsincompose.Animal
 
 @Composable
-fun LazyVerticalGridScreen(animals: List<Animal>) {
+fun LazyVerticalGridScreen(
+    animals: List<Animal>,
+    modifier: Modifier = Modifier
+) {
     LazyVerticalGrid(
+        modifier = Modifier.then(modifier),
         columns = GridCells.Adaptive(120.dp),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),
@@ -39,5 +43,5 @@ private fun PhotoItem(imageUrl: String) =
         modifier = Modifier
             .size(200.dp)
             .clip(RoundedCornerShape(12.dp))
-            .clickable { }
+            .clickable { },
     )

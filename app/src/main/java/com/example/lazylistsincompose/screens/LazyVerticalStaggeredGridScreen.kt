@@ -16,8 +16,12 @@ import coil.compose.AsyncImage
 import com.example.lazylistsincompose.Animal
 
 @Composable
-fun LazyVerticalStaggeredGridScreen(animals: List<Animal>) {
+fun LazyVerticalStaggeredGridScreen(
+    animals: List<Animal>,
+    modifier: Modifier = Modifier
+) {
     LazyVerticalStaggeredGrid(
+        modifier = Modifier.then(modifier),
         columns = StaggeredGridCells.Adaptive(120.dp),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),

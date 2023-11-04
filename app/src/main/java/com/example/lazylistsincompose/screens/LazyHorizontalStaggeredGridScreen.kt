@@ -16,12 +16,16 @@ import coil.compose.AsyncImage
 import com.example.lazylistsincompose.Animal
 
 @Composable
-fun LazyHorizontalStaggeredGridScreen(animals: List<Animal>) {
+fun LazyHorizontalStaggeredGridScreen(
+    animals: List<Animal>,
+    modifier: Modifier = Modifier
+) {
     LazyHorizontalStaggeredGrid(
+        modifier = Modifier.then(modifier),
         rows = StaggeredGridCells.Adaptive(120.dp),
         contentPadding = PaddingValues(10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
-        horizontalItemSpacing = 5.dp
+        horizontalItemSpacing = 5.dp,
     ) {
         items(animals) { animal ->
             PhotoItem(imageUrl = animal.imageUrl)

@@ -25,8 +25,14 @@ import coil.compose.AsyncImage
 import com.example.lazylistsincompose.Animal
 
 @Composable
-fun LazyRowScreen(animals: List<Animal>) {
-    LazyRow(contentPadding = PaddingValues(10.dp)) {
+fun LazyRowScreen(
+    animals: List<Animal>,
+    modifier: Modifier = Modifier
+) {
+    LazyRow(
+        modifier = Modifier.then(modifier),
+        contentPadding = PaddingValues(10.dp)
+    ) {
         items(animals) { animal ->
             CardAnimals(
                 imageUrl = animal.imageUrl,

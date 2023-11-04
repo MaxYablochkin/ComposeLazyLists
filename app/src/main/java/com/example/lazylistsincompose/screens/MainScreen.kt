@@ -23,10 +23,8 @@ fun MainScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(text = "LazyLists samples in Compose") }
-            )
-        }
+            TopAppBar(title = { Text(text = "LazyLists samples in Compose") })
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

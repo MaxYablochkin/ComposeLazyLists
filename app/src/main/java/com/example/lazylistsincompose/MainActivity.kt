@@ -1,41 +1,23 @@
 package com.example.lazylistsincompose
 
+import android.os.Build
 import android.os.Bundle
-import android.transition.TransitionManager
-import android.view.animation.LinearInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.core.CubicBezierEasing
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseInBack
-import androidx.compose.animation.core.EaseInBounce
-import androidx.compose.animation.core.EaseInOutBack
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.EaseOutBack
-import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.MotionDurationScale
-import androidx.compose.ui.graphics.vector.PathNode
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -47,11 +29,14 @@ import com.example.lazylistsincompose.screens.LazyVerticalGridScreen
 import com.example.lazylistsincompose.screens.LazyVerticalStaggeredGridScreen
 import com.example.lazylistsincompose.screens.MainScreen
 import com.example.lazylistsincompose.ui.theme.LazyListsInComposeTheme
-import java.time.Duration
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             LazyListsInComposeTheme {
                 Surface(
@@ -108,25 +93,40 @@ class MainActivity : ComponentActivity() {
                         }
                     ) {
                         composable(Screens.MainScreen.destination) {
-                            MainScreen(navController = navController)
+                            MainScreen(navController)
                         }
                         composable(Screens.LazyRowScreen.destination) {
-                            LazyRowScreen(animals = listAnimals)
+                            LazyRowScreen(
+                                listAnimals,
+                                Modifier.windowInsetsPadding(WindowInsets.statusBars)
+                            )
                         }
                         composable(Screens.LazyColumnScreen.destination) {
-                            LazyColumnScreen(animals = listAnimals)
+                            LazyColumnScreen(listAnimals, navController)
                         }
                         composable(Screens.LazyHorizontalGridScreen.destination) {
-                            LazyHorizontalGridScreen(animals = listAnimals)
+                            LazyHorizontalGridScreen(
+                                listAnimals,
+                                Modifier.windowInsetsPadding(WindowInsets.statusBars)
+                            )
                         }
                         composable(Screens.LazyVerticalGridScreen.destination) {
-                            LazyVerticalGridScreen(animals = listAnimals)
+                            LazyVerticalGridScreen(
+                                listAnimals,
+                                Modifier.windowInsetsPadding(WindowInsets.statusBars)
+                            )
                         }
                         composable(Screens.LazyVerticalStaggeredGridScreen.destination) {
-                            LazyVerticalStaggeredGridScreen(animals = listAnimals)
+                            LazyVerticalStaggeredGridScreen(
+                                listAnimals,
+                                Modifier.windowInsetsPadding(WindowInsets.statusBars)
+                            )
                         }
                         composable(Screens.LazyHorizontalStaggeredGridScreen.destination) {
-                            LazyHorizontalStaggeredGridScreen(animals = listAnimals)
+                            LazyHorizontalStaggeredGridScreen(
+                                listAnimals,
+                                Modifier.windowInsetsPadding(WindowInsets.statusBars)
+                            )
                         }
                     }
                 }
@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    companion object Values {
+    companion object {
         val listAnimals = listOf(
             Animal(
                 "https://images.pexels.com/photos/3238532/pexels-photo-3238532.jpeg?auto=compress&cs=tinysrgb&w=600",
